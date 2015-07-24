@@ -1,0 +1,27 @@
+require './dePloyer.rb'
+require './config.rb'
+
+verbose true
+ 
+qa_deployer = DePloyer.new({dir: APP_DIR, repo: CLONE_REPO})
+
+namespace :qa_server do
+  task :set_permissions do
+    qa_deployer.set_permissions
+  end
+  task :clone do
+    qa_deployer.clone
+  end
+  task :backup do
+    qa_deployer.backup
+  end
+end
+
+namespace :test do
+  task :init_deploy do
+    deployer = DePloyer.new({dir: APP_DIR})
+    puts "#{deployer.dir} should be #{APP_DIR}"
+    puts "this should throw an undefined argument error:"
+    deployer_bad = DePloyer.new({})
+  end
+end
